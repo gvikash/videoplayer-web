@@ -1,0 +1,15 @@
+{
+  "name": "mediaexplorer",
+  "version": "1.0.0",
+  "description": "App to list video files from hardrive  in browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vikash Gupta",
+  "license": "ISC",
+  "devDependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  }
+}

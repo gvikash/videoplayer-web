@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>Media Explorer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/mousetrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="mediaContent section">
+        <div class="videoPlayer">
+            <video controls id="video">
+                <source src="<%= files[0].path %>" type="video/mp4" id="source">
+            </video>
+        </div>
+        <div class="speed">
+            <p>Speed: <span id="speed">1</span>x</p>
+        </div>
+    </div>
+    <div class="mediaListing section">
+        <% for(var i = 0; i < files.length; i++){ %>
+            <div class="media <%= i === 0 ? 'active' : '' %>" data-url="<%= files[i].path %>">
+                <p class="name"><%= files[i].name %></p>
+                <!--<p class="duration">2:20 Hrs</p>-->
+            </div>
+        <% } %>
+    </div>
+</div>
+</body>
+<script>
+  $(document).ready(function(){
+    var video = $('#video').get(0);
+    isPlaying = false;
+    function togglePlay() {
+      if( isPlaying === true ) {
+        isPlaying = false;
+        video.pause();
+      }else{
+        isPlaying = true;
+        video.play();
+      }
+    }
+    $(document).on('click', '.media', function (e) {
+      console.log($(this).data('url'));
+      $('#source').attr('src', $(this).data('url'));
+      video.load();
+      video.play();
+      isPlaying = true;
+      $('.media').removeClass('active');
+      $(this).addClass('active');
+    });
+
+    Mousetrap.bind(['left'], function(e) {
+        video.currentTime -= 5;
+    });
+    Mousetrap.bind(['right'], function(e) {
+      video.currentTime += 5;
+    });
+    Mousetrap.bind(['down'], function(e) {
+      if(video.playbackRate > 0.25){
+        $('#speed').text(parseFloat(video.playbackRate.toFixed(2)) - 0.25);
+        video.playbackRate = parseFloat(video.playbackRate.toFixed(2)) - 0.25;
+      }
+    });
+    Mousetrap.bind(['up'], function(e) {
+      if(video.playbackRate < 2){
+        $('#speed').text(parseFloat(video.playbackRate.toFixed(2)) + 0.25);
+        video.playbackRate = parseFloat(video.playbackRate.toFixed(2)) + 0.25;
+      }
+    });
+    Mousetrap.bind(['shift+up'], function(e) {
+      if( video.volume < 1 ) {
+        video.volume = parseFloat(video.volume.toFixed(2)) + 0.2;
+      }
+    });
+    Mousetrap.bind(['shift+down'], function(e) {
+      if( video.volume > 0 ){
+        video.volume = parseFloat(video.volume.toFixed(2)) - 0.2;
+      }
+    });
+    $(document).on('click', '.mediaContent', function(e){
+      togglePlay();
+    })
+    Mousetrap.bind(['space'], function(e) {
+      togglePlay();
+    });
+    Mousetrap.bind(['enter'], function(e) {
+      $('#speed').text(1);
+      video.playbackRate = 1;
+    });
+  });
+</script>
+</html>
