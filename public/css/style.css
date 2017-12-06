@@ -23,25 +23,32 @@ html, body, .container{
     background-color: #e3e3e3;
     position: relative;
 }
-.speed{
+.icons-container{
     position: absolute;
     bottom: 42px;
     left: 0;
     right: 0;
     text-align: center;
-}
-.speed p{
-    color: #a5a5a5;
-    margin: 0;
-    display: inline-block;
-    font-size: 12px;
-    background: #232323;
-    padding: 1px 8px;
-    border-radius: 2px;
+    font-size: 0;
+    z-index: 2;
 }
 .mediaListing{
     width: 300px;
     background-color: #232323;
+}
+.backward-section{
+    position: absolute;
+    width: 20%;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+.forward-section{
+    position: absolute;
+    width: 20%;
+    top: 0;
+    right: 0;
+    height: 100%;
 }
 .media{
     padding: 20px;
@@ -89,4 +96,37 @@ html, body, .container{
     .videoPlayer video{
         height: auto;
     }
+}
+.icons{
+    margin: 0 8px;
+    padding: 5px;
+    width: 40px;
+    cursor: pointer;
+}
+.forward{
+
+}
+.backward{
+    transform: rotateZ(180deg);
+    margin-right: 15px;
+}
+.play-pause{
+
+}
+.speed-container{
+    position: absolute;
+    bottom: 42px;
+    left: 0;
+    right: 0;
+    font-size: 0;
+    text-align: right;
+}
+.speed-container p{
+    color: #a5a5a5;
+    margin: 0;
+    display: inline-block;
+    font-size: 12px;
+    padding: 0 8px;
+    border-radius: 2px;
+    line-height: 40px;
 }

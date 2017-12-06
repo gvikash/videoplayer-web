@@ -15,9 +15,16 @@
                 <source src="<%= files[0].path %>" type="video/mp4" id="source">
             </video>
         </div>
-        <div class="speed">
+        <div class="icons-container">
+            <img class="icons backward" src="img/fast-forward.png" alt="">
+            <img class="icons reset-speed" src="img/settings.png" alt="">
+            <img class="icons forward" src="img/fast-forward.png" alt="">
+        </div>
+        <div class="speed-container">
             <p>Speed: <span id="speed">1</span>x</p>
         </div>
+        <!--<div class="backward-section"></div>-->
+        <!--<div class="forward-section"></div>-->
     </div>
     <div class="mediaListing section">
         <% for(var i = 0; i < files.length; i++){ %>
@@ -65,7 +72,7 @@
       }
     });
     Mousetrap.bind(['up'], function(e) {
-      if(video.playbackRate < 2){
+      if(video.playbackRate < 5){
         $('#speed').text(parseFloat(video.playbackRate.toFixed(2)) + 0.25);
         video.playbackRate = parseFloat(video.playbackRate.toFixed(2)) + 0.25;
       }
@@ -82,7 +89,25 @@
     });
     $(document).on('click', '.mediaContent', function(e){
       togglePlay();
-    })
+    });
+    $(document).on('click', '.reset-speed', function(e){
+      e.stopPropagation();
+      e.preventDefault();
+      $('#speed').text(1);
+      video.playbackRate = 1;
+    });
+    $(document).on('click', '.forward', function(e){
+      console.log('forward');
+      e.stopPropagation();
+      e.preventDefault();
+      video.currentTime += 5;
+    });
+    $(document).on('click', '.backward', function(e){
+      console.log('backward');
+      e.stopPropagation();
+      e.preventDefault();
+      video.currentTime -= 5;
+    });
     Mousetrap.bind(['space'], function(e) {
       togglePlay();
     });
