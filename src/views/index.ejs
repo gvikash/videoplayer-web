@@ -12,7 +12,7 @@
     <div class="mediaContent section">
         <div class="videoPlayer">
             <video controls id="video">
-                <source src="<%= files[0].path %>" type="video/mp4" id="source">
+                <source src="<%=  %>" type="video/mp4" id="source">
             </video>
         </div>
         <div class="icons-container">
@@ -27,6 +27,11 @@
         <!--<div class="forward-section"></div>-->
     </div>
     <div class="mediaListing section">
+        <div class="activeDirectory">
+            <img src="img/left-arrow.png" class="back-btn" alt="">
+            <p class="active-dir">WebpackFundamentals</p>
+        </div>
+        <div class="foldersContent"></div>
         <% for(var i = 0; i < files.length; i++){ %>
             <div class="media <%= i === 0 ? 'active' : '' %>" data-url="<%= files[i].path %>">
                 <p class="name"><%= files[i].name %></p>
@@ -39,6 +44,11 @@
 <script>
   $(document).ready(function(){
     var video = $('#video').get(0);
+    var tree = <%- tree %>
+    console.log(tree);
+    var pathsStack = [tree.path];
+    $('.active-dir').text(tree.path);
+    appendFolders(tree.children);
     isPlaying = false;
     function togglePlay() {
       if( isPlaying === true ) {
@@ -49,14 +59,41 @@
         video.play();
       }
     }
+    function appendFolders(data) {
+      var str = '';
+      for(var l = 0; l < data.length; l++){
+        str += '<div class="media" data-url="' + data[l].path + '" data-type="' + data[l].type + '"><p class="name">' + data[l].name + '</p></div>';
+      }
+      $('.foldersContent').html('').append(str);
+    }
+
+    function getChildren(obj, path) {
+      if( obj.path === path ) return obj.children;
+      if(obj.children){
+          for(var g = 0; g < obj.children.length; g++){
+              var ret = getChildren(obj.children[g], path);
+              if( ret ){
+                return ret;
+              }
+          }
+      }
+    }
+
     $(document).on('click', '.media', function (e) {
-      console.log($(this).data('url'));
-      $('#source').attr('src', $(this).data('url'));
-      video.load();
-      video.play();
-      isPlaying = true;
-      $('.media').removeClass('active');
-      $(this).addClass('active');
+      if($(this).data('type') === 'file'){
+          $('#source').attr('src', $(this).data('url'));
+          video.load();
+          video.play();
+          isPlaying = true;
+          $('.media').removeClass('active');
+          $(this).addClass('active');
+      }else if($(this).data('type') === 'folder'){
+        var path = $(this).data('url');
+        pathsStack.push(path);
+        $('.active-dir').text(path.split('/').splice(-1)[0]);
+        var children = getChildren(tree, path);
+        appendFolders(children);
+      }
     });
 
     Mousetrap.bind(['left'], function(e) {
@@ -97,13 +134,18 @@
       video.playbackRate = 1;
     });
     $(document).on('click', '.forward', function(e){
-      console.log('forward');
       e.stopPropagation();
       e.preventDefault();
       video.currentTime += 5;
     });
+    $(document).on('click', '.back-btn', function(e){
+      if(pathsStack.length === 1) return;
+      pathsStack.pop();
+      $('.active-dir').text(pathsStack[pathsStack.length - 1].split('/').splice(-1)[0]);
+      var children = getChildren(tree, pathsStack[pathsStack.length - 1]);
+      appendFolders(children);
+    });
     $(document).on('click', '.backward', function(e){
-      console.log('backward');
       e.stopPropagation();
       e.preventDefault();
       video.currentTime -= 5;

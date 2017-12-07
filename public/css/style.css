@@ -32,9 +32,38 @@ html, body, .container{
     font-size: 0;
     z-index: 2;
 }
+.back-btn{
+    height: 100%;
+    padding: 20px;
+    float: left;
+    cursor: pointer;
+    border-right: 1px solid #3a3a3a;
+}
+.active-dir{
+    display: inline-block;
+    width: calc( 100% - 70px );
+    margin: 0;
+    font-size: 14px;
+    color: #e3e3e3;
+    line-height: 60px;
+    padding-left: 16px;
+}
 .mediaListing{
     width: 300px;
     background-color: #232323;
+    overflow-y: hidden;
+}
+.mediaListing .activeDirectory{
+    height: 60px;
+    width: 100%;
+    display: inline-block;
+    border-bottom: 1px solid #3a3a3a;
+}
+.mediaListing .foldersContent{
+    height: calc( 100% - 60px );
+    width: 100%;
+    display: inline-block;
+    overflow-y: auto;
 }
 .backward-section{
     position: absolute;
