@@ -31,7 +31,12 @@
             <img src="img/left-arrow.png" class="back-btn" alt="">
             <p class="active-dir">WebpackFundamentals</p>
         </div>
-        <div class="foldersContent"></div>
+        <div class="foldersContent">
+            <!--<div class="media" data-url="asd" data-type="asd">-->
+                <!--<img src="/img/folder.png" alt="" class="type-image" />-->
+                <!--<p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, sint.</p>-->
+            <!--</div>-->
+        </div>
     </div>
 </div>
 </body>
@@ -56,7 +61,7 @@
     function appendFolders(data) {
       var str = '';
       for(var l = 0; l < data.length; l++){
-        str += '<div class="media" data-url="' + data[l].path + '" data-type="' + data[l].type + '"><p class="name">' + data[l].name + '</p></div>';
+        str += '<div class="media" data-url="' + data[l].path + '" data-type="' + data[l].type + '"><img src="/img/' + data[l].type + '.png" alt="" class="type-image" /><p class="name">' + data[l].name + '</p></div>';
       }
       $('.foldersContent').html('').append(str);
     }

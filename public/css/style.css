@@ -88,6 +88,7 @@ html, body, .container{
     padding: 20px;
     cursor: pointer;
     border-bottom: 1px solid #3a3a3a;
+    overflow: auto;
 }
 .media:hover, .media.active{
     background-color: #383838;
@@ -98,7 +99,12 @@ html, body, .container{
     font-size: 14px;
 }
 .media p.name{
-    font-size: 14px;
+    font-size: 13px;
+    width: calc( 100% - 24px );
+    display: inline-block;
+    float: left;
+    line-height: 24px;
+    padding-left: 16px;
 }
 .media p.duration{
     margin-top: 20px;
@@ -165,4 +171,9 @@ html, body, .container{
     padding: 0 8px;
     border-radius: 2px;
     line-height: 40px;
+}
+.type-image{
+    width: 24px;
+    display: inline-block;
+    float: left;
 }
