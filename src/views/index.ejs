@@ -15,12 +15,12 @@
                 <source src="<%=  %>" type="video/mp4" id="source">
             </video>
         </div>
-        <div class="icons-container">
+        <div class="icons-container options">
             <img class="icons backward" src="img/fast-forward.png" alt="">
             <img class="icons reset-speed" src="img/settings.png" alt="">
             <img class="icons forward" src="img/fast-forward.png" alt="">
         </div>
-        <div class="speed-container">
+        <div class="speed-container options">
             <p>Speed: <span id="speed">1</span>x</p>
         </div>
         <!--<div class="backward-section"></div>-->
@@ -150,6 +150,15 @@
     Mousetrap.bind(['enter'], function(e) {
       $('#speed').text(1);
       video.playbackRate = 1;
+    });
+    var timeoutRef = 0;
+    var options = $('.options');
+    document.addEventListener("mousemove", function () {
+      clearTimeout(timeoutRef);
+      options.show();
+      timeoutRef = setTimeout(function () {
+        options.hide();
+      }, 2000);
     });
   });
 </script>

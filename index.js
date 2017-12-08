@@ -75,12 +75,10 @@ function dirTree(relativePath, name) {
 }
 
 var fileTree = dirTree(rootFolder, rootFolder);
-console.log(fileTree);
 
 var port = process.env.PORT || 5220;
 var filesArr = [];
 
-  // console.log('Fiels arr',filesArr)
 
 app.use(express.static('public'));
 app.use(express.static(rootDir));
