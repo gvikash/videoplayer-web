@@ -3,7 +3,7 @@ const fs = require('fs');
 var path = require('path');
 var rootDir = '/Users/vikashgupta/WebstormProjects'; // root directory
 var excludes = ['node_modules', '.git', '.idea', 'docs', 'Downloads', 'Desktop', 'Applications', 'Documents']; // folders to exclude in listing
-var pattern = /^[a-zA-Z0-9_()]*(.mp4|.mkv|.webm|.webp|.avi)\b/i; // video format to show in listing
+var pattern = /(.mp4|.mkv|.webm|.webp|.avi)$\b/i; // video format to show in listing
 
 
 
